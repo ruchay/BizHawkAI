@@ -743,6 +743,9 @@ namespace BizHawk.Client.EmuHawk
 							// send the game state to the controller
 							// if the commands don't match, wait until they do.
 						} while (command_p2.type != command_type);
+						// if we get a buttons command, replace the buttons of first emulator's set for it's p2 (which
+						// is null) with the buttons we want to actually play from this emulator's set of buttons. 
+						// we do this so we only need one command object after this code block.
 						if (command_type == "buttons")
 						{
 							command.p2 = command_p2.p1;
