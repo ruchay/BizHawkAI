@@ -281,6 +281,12 @@ namespace BizHawk.Client.EmuHawk
 				Global.Config.round_over_delay= argParse.round_over_delay;
 			}
 
+
+			if (argParse.emulator_speed_percent > 0)
+			{
+				Global.Config.emulator_speed_percent = argParse.emulator_speed_percent;
+			}
+
 			if (argParse.socket_port != null)
 			{
 				Global.Config.controller_port = argParse.socket_port;
@@ -300,7 +306,10 @@ namespace BizHawk.Client.EmuHawk
 			{
 				Global.Config.use_two_controllers = true;
 			}
-
+			if (argParse.pause_after_round)
+			{
+				Global.Config.pause_after_round = true;
+			}
 			if (argParse.run_id != null)
 			{
 				Global.Config.run_id = argParse.run_id;

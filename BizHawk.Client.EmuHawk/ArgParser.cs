@@ -32,6 +32,8 @@ namespace BizHawk.Client.EmuHawk
 		public int socket_port_p2 = 10000;
 		public string socket_ip_p2 = "127.0.0.1";
 		public int round_over_delay = 0;
+		public int emulator_speed_percent = 6399;
+		public bool pause_after_round = false;
 
 		public void parseArguments(string[] args)
 			
@@ -132,9 +134,17 @@ namespace BizHawk.Client.EmuHawk
 				{
 					use_two_controllers = true;
 				}
+				else if (arg.StartsWith("--pause_after_round"))
+				{
+					pause_after_round = true;
+				}
 				else if (arg.StartsWith("--round_over_delay="))
 				{
 					round_over_delay =Convert.ToInt32(arg.Substring(arg.IndexOf('=') + 1));
+				}
+				else if (arg.StartsWith("--emulator_speed_percent="))
+				{
+					emulator_speed_percent = Convert.ToInt32(arg.Substring(arg.IndexOf('=') + 1));
 				}
 				else
 				{

@@ -734,6 +734,11 @@ namespace BizHawk.Client.EmuHawk
 					if (_post_round_wait_time < 1)
 					{
 						_post_round_wait_time = Global.Config.round_over_delay;
+						if (Global.Config.pause_after_round)
+						{
+							GlobalWin.MainForm.PauseEmulator();
+							return;
+						}
 					}
 					else
 					{
@@ -826,7 +831,10 @@ namespace BizHawk.Client.EmuHawk
 			Global.Config.SoundEnabled = false;
 			GlobalWin.MainForm.UnpauseEmulator();
 			SetMaxSpeed();
-			GlobalWin.MainForm.ClickSpeedItem(6399);
+			if (Global.Config.emulator_speed_percent != 6399) {
+				SetNormalSpeed();
+			}
+			GlobalWin.MainForm.ClickSpeedItem(Global.Config.emulator_speed_percent);
 			//if (Settings.TurboWhenBotting)
 			//{
 			//	SetMaxSpeed();
