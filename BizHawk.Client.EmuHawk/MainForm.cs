@@ -276,6 +276,11 @@ namespace BizHawk.Client.EmuHawk
 				Global.Config.controller_ip = argParse.socket_ip;
 			}
 
+			if (argParse.round_over_delay > 0)
+			{
+				Global.Config.round_over_delay= argParse.round_over_delay;
+			}
+
 			if (argParse.socket_port != null)
 			{
 				Global.Config.controller_port = argParse.socket_port;

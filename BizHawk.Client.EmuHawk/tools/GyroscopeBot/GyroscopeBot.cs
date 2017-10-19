@@ -65,6 +65,8 @@ namespace BizHawk.Client.EmuHawk
 		private float _p2_winsToLosses = 0;
 		private int _totalGames = 0;
 		private int _OSDMessageTimeInSeconds = 15;
+		private int _post_round_wait_time = 0;
+		public bool game_in_progress = false;
 
 		private ILogEntryGenerator _logGenerator;
 		private TcpClient client;
@@ -702,8 +704,11 @@ namespace BizHawk.Client.EmuHawk
 
 			if (_isBotting)
 			{
-				if (is_round_over())
+
+				if (is_round_over() && game_in_progress)
 				{
+					_post_round_wait_time--;
+					game_in_progress = false;
 					_totalGames = _totalGames + 1;
 					if (get_round_result() == "P1")
 					{
@@ -724,6 +729,19 @@ namespace BizHawk.Client.EmuHawk
 					GlobalWin.OSD.ClearGUIText();
 					GlobalWin.OSD.AddMessageForTime("Game #: " + _totalGames + " | Last Result: " + _lastResult + " | P1 Wins-Losses: " + _wins + "-" + _losses + " (" + _winsToLosses + ") | P2 Wins-Losses: " + _p2_wins + "-" + _p2_losses + " (" + _p2_winsToLosses + ")", _OSDMessageTimeInSeconds);
 				}
+				if (_post_round_wait_time < Global.Config.round_over_delay)
+				{
+					if (_post_round_wait_time < 1)
+					{
+						_post_round_wait_time = Global.Config.round_over_delay;
+					}
+					else
+					{
+						_post_round_wait_time--;
+						return;
+					}
+				}
+
 
 				string command_type = "";
 				do
@@ -759,6 +777,7 @@ namespace BizHawk.Client.EmuHawk
 					if (command_type == "reset")
 					{
 						GlobalWin.MainForm.LoadState(command.savegamepath, Path.GetFileName(command.savegamepath));
+						game_in_progress = true;
 					}
 					else if (command_type == "processing")
 					{
@@ -776,7 +795,8 @@ namespace BizHawk.Client.EmuHawk
 						}
 					}
 				} while (command_type == "processing");
-				
+
+
 
 
 
@@ -816,6 +836,7 @@ namespace BizHawk.Client.EmuHawk
 			MessageLabel.Text = "Running...";
 			_logGenerator = Global.MovieSession.LogGeneratorInstance();
 			_logGenerator.SetSource(Global.ClickyVirtualPadController);
+			_post_round_wait_time = Global.Config.round_over_delay;
 			GlobalWin.OSD.AddMessageForTime("Game #: 0 Last Result: N/A P1 Wins-Losses: " + _wins + "-" + _losses + "(" + _winsToLosses + ") P2 Wins-Losses: " + _p2_wins + "-" + _p2_losses + "(" + _p2_winsToLosses + ")", _OSDMessageTimeInSeconds);
 
 		}

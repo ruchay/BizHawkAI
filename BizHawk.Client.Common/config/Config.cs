@@ -138,6 +138,7 @@ namespace BizHawk.Client.Common
 		public int controller_port_p2 = 10000;
 		public string controller_ip_p2 = "127.0.0.1";
 		public string run_id = null;
+		public int round_over_delay;
 
 		/// <summary>
 		/// Makes a .bak file before any saveram-writing operation (could be extended to make timestamped backups)
