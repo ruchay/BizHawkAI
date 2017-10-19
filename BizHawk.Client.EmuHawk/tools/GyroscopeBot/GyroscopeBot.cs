@@ -771,7 +771,7 @@ namespace BizHawk.Client.EmuHawk
 						// we do this so we only need one command object after this code block.
 						if (command_type == "buttons")
 						{
-							command.p2 = command_p2.p1;
+							command.p2 = command_p2.p2;
 						}
 					
 					}
@@ -845,7 +845,7 @@ namespace BizHawk.Client.EmuHawk
 			_logGenerator = Global.MovieSession.LogGeneratorInstance();
 			_logGenerator.SetSource(Global.ClickyVirtualPadController);
 			_post_round_wait_time = Global.Config.round_over_delay;
-			GlobalWin.OSD.AddMessageForTime("Game #: 0 Last Result: N/A P1 Wins-Losses: " + _wins + "-" + _losses + "(" + _winsToLosses + ") P2 Wins-Losses: " + _p2_wins + "-" + _p2_losses + "(" + _p2_winsToLosses + ")", _OSDMessageTimeInSeconds);
+			GlobalWin.OSD.AddMessageForTime("Game #: 0 Last Result: N/A P1 Wins-Losses: " + _wins + "-" + _losses + " (" + _winsToLosses + ") P2 Wins-Losses: " + _p2_wins + "-" + _p2_losses + "(" + _p2_winsToLosses + ")", _OSDMessageTimeInSeconds);
 
 		}
 
