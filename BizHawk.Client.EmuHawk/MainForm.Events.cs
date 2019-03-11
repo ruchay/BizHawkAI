@@ -1361,6 +1361,7 @@ namespace BizHawk.Client.EmuHawk
 			batchRunnerToolStripMenuItem.Visible = VersionInfo.DeveloperBuild;
 
 			BasicBotMenuItem.Enabled = GlobalWin.Tools.IsAvailable<BasicBot>();
+			BasicBotMenuItem.Enabled = GlobalWin.Tools.IsAvailable<GyroscopeBot>();
 
 			gameSharkConverterToolStripMenuItem.Enabled = GlobalWin.Tools.IsAvailable<GameShark>();
 
@@ -1464,6 +1465,11 @@ namespace BizHawk.Client.EmuHawk
 		private void BasicBotMenuItem_Click(object sender, EventArgs e)
 		{
 			GlobalWin.Tools.Load<BasicBot>();
+		}
+
+		private void GyroscopeBotMenuItem_Click(object sender, EventArgs e)
+		{
+			GlobalWin.Tools.Load<GyroscopeBot>();
 		}
 
 		private void CheatsMenuItem_Click(object sender, EventArgs e)

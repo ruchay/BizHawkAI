@@ -221,7 +221,8 @@
             this.MacroToolMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.VirtualPadMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.BasicBotMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
+			this.GyroscopeBotMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             this.CheatsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gameSharkConverterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator29 = new System.Windows.Forms.ToolStripSeparator();
@@ -2012,7 +2013,8 @@
             this.MacroToolMenuItem,
             this.VirtualPadMenuItem,
             this.BasicBotMenuItem,
-            this.toolStripSeparator11,
+			this.GyroscopeBotMenuItem,
+			this.toolStripSeparator11,
             this.CheatsMenuItem,
             this.gameSharkConverterToolStripMenuItem,
             this.toolStripSeparator29,
@@ -2123,10 +2125,17 @@
             this.BasicBotMenuItem.Size = new System.Drawing.Size(191, 22);
             this.BasicBotMenuItem.Text = "Basic Bot";
             this.BasicBotMenuItem.Click += new System.EventHandler(this.BasicBotMenuItem_Click);
-            // 
-            // toolStripSeparator11
-            // 
-            this.toolStripSeparator11.Name = "toolStripSeparator11";
+			// 
+			// GyroscopeBotMenuItem
+			// 
+			this.GyroscopeBotMenuItem.Name = "GyroscopeBotMenuItem";
+			this.GyroscopeBotMenuItem.Size = new System.Drawing.Size(191, 22);
+			this.GyroscopeBotMenuItem.Text = "Gyroscope Bot";
+			this.GyroscopeBotMenuItem.Click += new System.EventHandler(this.GyroscopeBotMenuItem_Click);
+			// 
+			// toolStripSeparator11
+			// 
+			this.toolStripSeparator11.Name = "toolStripSeparator11";
             this.toolStripSeparator11.Size = new System.Drawing.Size(188, 6);
             // 
             // CheatsMenuItem
@@ -4350,6 +4359,7 @@
 		private System.Windows.Forms.ToolStripMenuItem Frameskip8MenuItem;
 		private System.Windows.Forms.ToolStripMenuItem Speed400MenuItem;
 		private System.Windows.Forms.ToolStripMenuItem BasicBotMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem GyroscopeBotMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem DisplayMessagesMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem C64SubMenu;
 		private System.Windows.Forms.ToolStripMenuItem C64SettingsMenuItem;

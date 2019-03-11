@@ -32,7 +32,7 @@ namespace BizHawk.Client.EmuHawk
 		public int socket_port_p2 = 10000;
 		public string socket_ip_p2 = "127.0.0.1";
 		public int round_over_delay = 0;
-		public int emulator_speed_percent = 6399;
+		public int emulator_speed_percent = 100;
 		public bool pause_after_round = false;
 
 		public void parseArguments(string[] args)

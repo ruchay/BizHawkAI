@@ -92,7 +92,7 @@ namespace BizHawk.Client.EmuHawk
 			public GyroscopeBotSettings()
 			{
 				RecentBotFiles = new RecentFiles();
-				TurboWhenBotting = true;
+				TurboWhenBotting = false;
 			}
 
 			public RecentFiles RecentBotFiles { get; set; }
@@ -421,23 +421,23 @@ namespace BizHawk.Client.EmuHawk
 			public GameState()
 			{
 			}
-			public PlayerState p1 { get; set; }
-			public PlayerState p2 { get; set; }
+			//public PlayerState p1 { get; set; }
+			//public PlayerState p2 { get; set; }
 			public int frame { get; set; }
-			public int timer { get; set; }
-			public string result { get; set; }
-			public bool round_started { get; set; }
-			public bool round_over { get; set; }
-			public int height_delta { get; set; }
-			public int width_delta { get; set; }
+			//public int timer { get; set; }
+			//public string result { get; set; }
+			//public bool round_started { get; set; }
+			//public bool round_over { get; set; }
+			//public int height_delta { get; set; }
+			//public int width_delta { get; set; }
 		}
 
 		private GameState GetCurrentState()
 		{
-			PlayerState p1 = new PlayerState();
-			PlayerState p2 = new PlayerState();
+			//PlayerState p1 = new PlayerState();
+			//PlayerState p2 = new PlayerState();
 			GameState gs = new GameState();
-			p1.health = get_p1_health();
+			/*p1.health = get_p1_health();
 			p1.x = get_p1_x();
 			p1.y = get_p1_y();
 			p1.jumping = is_p1_jumping();
@@ -457,16 +457,16 @@ namespace BizHawk.Client.EmuHawk
 			p2.buttons = GetJoypadButtons(2);
 			p2.move = get_p2_move();
 			p2.in_move = is_p2_in_move();
-
-			gs.p1 = p1;
-			gs.p2 = p2;
-			gs.result = get_round_result();
+			*/
+			//gs.p1 = p1;
+			//gs.p2 = p2;
+			//gs.result = get_round_result();
 			gs.frame = Emulator.Frame;
-			gs.timer = get_timer();
-			gs.round_started = is_round_started();
-			gs.round_over = is_round_over();
-			gs.height_delta = p_height_delta();
-			gs.width_delta = p_width_delta();
+			//gs.timer = get_timer();
+			//gs.round_started = is_round_started();
+			//gs.round_over = is_round_over();
+			//gs.height_delta = p_height_delta();
+			//gs.width_delta = p_width_delta();
 
 			return gs;
 		}
