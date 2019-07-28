@@ -7,6 +7,7 @@ using System.Net.Sockets;
 using System.Linq;
 using System.Text;
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 
 using System.Windows.Forms;
@@ -193,6 +194,34 @@ namespace BizHawk.Client.EmuHawk
 			return true;
 		}
 
+		
+		public bool get_p1_hitstun()
+		{
+			uint val = (uint)_currentDomain.PeekUint(0x000502, _bigEndian);
+			if (val == 134658 || val == 67245058 || val == 100799490 || val == 134353922 || val == 167908354 || val == 267266 || val == 398338 || val == 132610 || val == 1538) return true;
+			else return false;
+		}
+
+		public bool get_p2_hitstun()
+		{
+			uint val = (uint)_currentDomain.PeekUint(0x000702, _bigEndian);
+			if (val == 134658 || val == 67245058 || val == 100799490 || val == 134353922 || val == 167908354 || val == 267266 || val == 398338 || val == 132610 || val == 1538) return true;
+			else return false;
+		} 
+
+		/*
+		public uint get_p1_hitstun()
+		{
+			uint val = (uint)_currentDomain.PeekUint(0x000502, _bigEndian);
+			return val;
+		}
+
+		public uint get_p2_hitstun()
+		{
+			uint val = (uint)_currentDomain.PeekUint(0x000702, _bigEndian);
+			return val;
+		}*/
+
 		public int p_width_delta()
 		{
 			return _currentDomain.PeekByte(0x0007EB);
@@ -313,6 +342,18 @@ namespace BizHawk.Client.EmuHawk
 			{
 				return "P1";
 			}
+			else if (get_p1_health() != 255 && get_p1_health() > get_p2_health() && get_timer() <= 0)
+			{
+				return "P1";
+			}
+			else if (get_p2_health() != 255 && get_p2_health() > get_p1_health() && get_timer() <= 0)
+			{
+				return "P2";
+			}
+			else if (get_p1_health() == get_p2_health() && get_timer() <= 0)
+			{
+				return "DRAW";
+			}
 			else
 			{
 				return "NOT_OVER";
@@ -413,6 +454,7 @@ namespace BizHawk.Client.EmuHawk
 			public Dictionary<string, bool> buttons { get; set; }
 			public bool in_move { get; set; }
 			public uint move { get; set; }
+			public bool in_hitstun { get; set; }
 
 
 		}
@@ -446,6 +488,7 @@ namespace BizHawk.Client.EmuHawk
 			p1.buttons = GetJoypadButtons(1);
 			p1.move = get_p1_move();
 			p1.in_move = is_p1_in_move();
+			p1.in_hitstun = get_p1_hitstun();
 
 
 			p2.health = get_p2_health();
@@ -457,7 +500,9 @@ namespace BizHawk.Client.EmuHawk
 			p2.buttons = GetJoypadButtons(2);
 			p2.move = get_p2_move();
 			p2.in_move = is_p2_in_move();
-			
+			p2.in_hitstun = get_p2_hitstun();
+
+
 			gs.p1 = p1;
 			gs.p2 = p2;
 			gs.result = get_round_result();
@@ -717,6 +762,10 @@ namespace BizHawk.Client.EmuHawk
 						_p2_losses = _p2_losses + 1;
 
 					}
+					else if (get_round_result() == "DRAW")
+					{
+						_lastResult = "Draw";
+					}
 					else
 					{
 						_losses = _losses + 1;
@@ -728,6 +777,7 @@ namespace BizHawk.Client.EmuHawk
 					_p2_winsToLosses = (float)_p2_wins / _totalGames;
 					GlobalWin.OSD.ClearGUIText();
 					GlobalWin.OSD.AddMessageForTime("Game #: " + _totalGames + " | Last Result: " + _lastResult + " | P1 Wins-Losses: " + _wins + "-" + _losses + " (" + _winsToLosses + ") | P2 Wins-Losses: " + _p2_wins + "-" + _p2_losses + " (" + _p2_winsToLosses + ")", _OSDMessageTimeInSeconds);
+					if (_totalGames % 100 == 0) Debug.WriteLine("Game #: " + _totalGames + " | Last Result: " + _lastResult + " | P1 Wins-Losses: " + _wins + "-" + _losses + " (" + _winsToLosses + ") | P2 Wins-Losses: " + _p2_wins + "-" + _p2_losses + " (" + _p2_winsToLosses + ")", _OSDMessageTimeInSeconds);
 				}
 				if (_post_round_wait_time < Global.Config.round_over_delay)
 				{
@@ -793,9 +843,10 @@ namespace BizHawk.Client.EmuHawk
 					else
 					{
 						SetJoypadButtons(command.p1, 1);
+						SetJoypadButtons(command.p2, 2);
 						if (Global.Config.use_two_controllers)
 						{
-							SetJoypadButtons(command.p2, 1);
+							SetJoypadButtons(command.p2, 2);
 							
 						}
 					}
