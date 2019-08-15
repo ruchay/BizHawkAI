@@ -843,7 +843,7 @@ namespace BizHawk.Client.EmuHawk
 					else
 					{
 						SetJoypadButtons(command.p1, 1);
-						SetJoypadButtons(command.p2, 2);
+						//SetJoypadButtons(command.p2, 2);
 						if (Global.Config.use_two_controllers)
 						{
 							SetJoypadButtons(command.p2, 2);
